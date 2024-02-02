@@ -16,17 +16,17 @@ export default function App() {
           <Stack.Screen
             name="Login"
             component={Login}
-            options={{ headerShown: false }}
+            // options={{ headerShown: false }}
           />
           <Stack.Screen
             name="SignUp"
             component={SignUp}
-            options={{ headerShown: false }}
+            // options={{ headerShown: false }}
           />
           <Stack.Screen
             name="RegisterOptions"
             component={RegisterOptions}
-            options={{ headerShown: false }}
+            // options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>
