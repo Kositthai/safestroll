@@ -4,30 +4,39 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/Login';
 import SignUp from './screens/SignUp';
+import FrontPage from './screens/FrontPage';
 import RegisterOptions from './screens/RegisterOptions';
+import { useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { FIREBASE_AUTH } from './FirebaseConfig';
+import { useState } from 'react';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      setUser(user);
+    });
+  }, []);
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            // options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            // options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="RegisterOptions"
-            component={RegisterOptions}
-            // options={{ headerShown: false }}
-          />
+        <Stack.Navigator initialRouteName="RegisterOptions">
+          {user ? (
+            <Stack.Screen name="FrontPage" component={FrontPage} />
+          ) : (
+            <>
+              <Stack.Screen
+                name="RegisterOptions"
+                component={RegisterOptions}
+              />
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="SignUp" component={SignUp} />
+            </>
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

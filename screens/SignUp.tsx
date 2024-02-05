@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -14,12 +14,42 @@ import SSOButton from '../src/components/SSOButton';
 import { form } from '../src/reusable/styles/Form';
 import { buttons } from '../src/reusable/styles/Button';
 import { layout } from '../src/reusable/styles/LayOut';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { FIREBASE_AUTH } from '../FirebaseConfig';
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
 
 interface SignUpProps {
   navigation: NavigationScreenProps;
+  route: NavigationScreenProps;
 }
 
-const SignUp: React.FC<SignUpProps> = ({ navigation }) => {
+const SignUp: React.FC<SignUpProps> = ({ navigation, route }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignUp = async () => {
+    const authUser = await createUserWithEmailAndPassword(
+      FIREBASE_AUTH,
+      email,
+      password
+    );
+
+    // involking fireStore
+    const db = getFirestore();
+    const userCollection = collection(db, 'users');
+
+    const data = await addDoc(userCollection, {
+      uid: authUser.user.uid,
+      email: authUser.user.email,
+      role: route.params.role,
+    });
+    console.log({ data });
+
+    if (data) {
+      navigation.navigate('FrontPage');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -30,14 +60,25 @@ const SignUp: React.FC<SignUpProps> = ({ navigation }) => {
         <View style={layout.fullWidthCenter}>
           <View style={styles.inputContainer}>
             <Text style={styles.signUpTitle}>SIGN UP</Text>
-            <TextInput style={form.input20} placeholder="Full name" />
-            <TextInput style={form.input20} placeholder="Username" />
-            <TextInput style={form.input20} placeholder="Password" />
+
+            <TextInput
+              style={form.input20}
+              placeholder="Email"
+              onChangeText={(text) => setEmail(text)}
+              value={email}
+            />
+            <TextInput
+              style={form.input20}
+              placeholder="Password"
+              onChangeText={(text) => setPassword(text)}
+              value={password}
+              secureTextEntry
+            />
             <View style={buttons.btnRaduis10}>
               <Button
                 title="Sign up"
                 color="red"
-                onPress={() => navigation.navigate('RegisterOptions')}
+                onPress={() => handleSignUp()}
               />
             </View>
           </View>
@@ -47,7 +88,7 @@ const SignUp: React.FC<SignUpProps> = ({ navigation }) => {
           </View>
           <View style={styles.styledSignUpContainer}>
             <Text style={styles.whiteText}>Already have an account?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <Text style={styles.styledSignUpText}>Sign in</Text>
             </TouchableOpacity>
           </View>

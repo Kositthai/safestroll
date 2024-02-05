@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -13,8 +13,25 @@ import SSOButton from '../src/components/SSOButton';
 import { form } from '../src/reusable/styles/Form';
 import { buttons } from '../src/reusable/styles/Button';
 import { layout } from '../src/reusable/styles/LayOut';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { FIREBASE_AUTH } from '../FirebaseConfig';
 
 const Login = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignIn = async () => {
+    const response = await signInWithEmailAndPassword(
+      FIREBASE_AUTH,
+      email,
+      password
+    );
+
+    if (response) {
+      navigation.navigate('FrontPage');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -25,10 +42,25 @@ const Login = ({ navigation }) => {
         <View style={layout.fullWidthCenter}>
           <View style={styles.inputContainer}>
             <Text style={styles.loginText}>LOG IN</Text>
-            <TextInput style={form.input20} placeholder="Username" />
-            <TextInput style={form.input20} placeholder="Password" />
+            <TextInput
+              style={form.input20}
+              placeholder="Email"
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+            />
+            <TextInput
+              style={form.input20}
+              placeholder="Password"
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              secureTextEntry
+            />
             <View style={buttons.btnRaduis10}>
-              <Button title="Login" color="red" />
+              <Button
+                title="Login"
+                color="red"
+                onPress={() => handleSignIn()}
+              />
             </View>
           </View>
           <View style={styles.ssoContainer}>

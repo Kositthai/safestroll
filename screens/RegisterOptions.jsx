@@ -1,16 +1,23 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, ImageBackground } from 'react-native';
-import { buttons } from '../src/reusable/styles/Button';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 import walkalone from '../assets/images/wave-red-black.png';
 import { layout } from '../src/reusable/styles/LayOut';
-import { TouchableOpacity } from 'react-native-web';
 
-function RegisterOptions() {
+const RegisterOptions = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ImageBackground source={walkalone} style={layout.fullWidthCenter}>
         <View style={styles.centerBox}>
-          <Text style={styles.shortMessage}>Do you know?</Text>
+          <Text style={styles.whiteText}>Join Safe Stroll community</Text>
+          <Text style={[styles.shortMessage, styles.marginTitle]}>
+            Do you know?
+          </Text>
           <Text style={styles.shortMessage}>
             Half of the female population<br></br>do not feel safe walking alone
             <br></br>
@@ -19,23 +26,27 @@ function RegisterOptions() {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity>
-            <View style={styles.button}>
-              <Text style={styles.whiteText}>I would like to volunteer</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SignUp', { role: 'volunteer' })}
+          >
             <View style={styles.button}>
               <Text style={styles.whiteText}>
-                I want somebody to talk to be on the way home
+                I would like to be a volunteer
               </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SignUp', { role: 'needer' })}
+          >
+            <View style={styles.button}>
+              <Text style={styles.whiteText}>I need assistent</Text>
             </View>
           </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -45,16 +56,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     color: 'white',
-    fontWeight: '800',
     marginLeft: 5,
     marginRight: 5,
     marginBottom: 10,
-    fontFamily: 'Klee One',
+    fontStyle: 'italic',
   },
   centerBox: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: '30%',
+    marginTop: '15%',
   },
   buttonContainer: {
     marginTop: 'auto',
@@ -68,6 +78,11 @@ const styles = StyleSheet.create({
   },
   whiteText: {
     color: 'white',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  marginTitle: {
+    marginTop: 30,
   },
 });
 
