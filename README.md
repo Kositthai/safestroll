@@ -1,6 +1,8 @@
 # Safestroll
 Safestroll is a **native mobile app** designed to ensure safe walks home, especially during late hours or in unfamiliar areas. Users can volunteer as companions or request support from nearby volunteers. With real-time assistance,and a supportive community, Safestroll helps users feel safer and more connected on their journey home.
 
+![mobile-3](https://github.com/Kositthai/safestroll/assets/94117213/5cfe8824-63d4-4fbc-9aba-670528e2b033)
+
 ## Tech Stack: 
 [![My Skills](https://skillicons.dev/icons?i=react,typescript,firebase,html,css,gmail)](https://skillicons.dev)
 
@@ -45,3 +47,4 @@ async function getCities(db) {
   return cityList;
 }
 ```
+
