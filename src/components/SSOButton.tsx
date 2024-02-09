@@ -1,29 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import GoogleButton from 'react-google-button';
+import { StyleSheet, Image, TouchableOpacity } from 'react-native';
+import SSOIcon from '../../assets/images/signUp.jpg';
 
-interface SSOProps {
-  label: string;
-}
-
-const SSOButton: React.FC<SSOProps> = ({ label }) => {
+const SSOButton: React.FC = () => {
   return (
-    <View>
-      <View style={styles.styledGoogleButton}>
-        <GoogleButton type="light" label={label} />
-      </View>
-    </View>
+    <TouchableOpacity style={styles.wrapperImage}>
+      <Image source={SSOIcon} style={styles.image} />
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  styledText: {
-    color: 'white',
-    textAlign: 'center',
-  },
-  styledGoogleButton: {
-    borderRadius: 10,
+  wrapperImage: {
     overflow: 'hidden',
+  },
+  image: {
+    borderRadius: 10,
   },
 });
 

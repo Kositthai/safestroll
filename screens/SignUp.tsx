@@ -24,27 +24,26 @@ interface SignUpProps {
 }
 
 const SignUp: React.FC<SignUpProps> = ({ navigation, route }) => {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignUp = async () => {
+    setLoading(true);
     const authUser = await createUserWithEmailAndPassword(
       FIREBASE_AUTH,
       email,
       password
     );
-
     // involking fireStore
     const db = getFirestore();
     const userCollection = collection(db, 'users');
-
     const data = await addDoc(userCollection, {
       uid: authUser.user.uid,
       email: authUser.user.email,
       role: route.params.role,
     });
-    console.log({ data });
-
+    setLoading(false);
     if (data) {
       navigation.navigate('FrontPage');
     }
@@ -54,43 +53,47 @@ const SignUp: React.FC<SignUpProps> = ({ navigation, route }) => {
     <View style={styles.container}>
       <ImageBackground
         source={walkingalone}
-        style={styles.imageBackground}
+        style={styles.container}
         resizeMode="cover"
       >
         <View style={layout.fullWidthCenter}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.signUpTitle}>SIGN UP</Text>
-
+          <View>
+            <Text style={styles.header}>SIGN UP</Text>
             <TextInput
               style={form.input20}
               placeholder="Email"
+              placeholderTextColor="white"
               onChangeText={(text) => setEmail(text)}
               value={email}
             />
             <TextInput
               style={form.input20}
               placeholder="Password"
+              placeholderTextColor="white"
               onChangeText={(text) => setPassword(text)}
               value={password}
               secureTextEntry
             />
             <View style={buttons.btnRaduis10}>
               <Button
-                title="Sign up"
-                color="red"
+                title={loading ? 'Loading...' : 'Sign Up'}
                 onPress={() => handleSignUp()}
+                disabled={loading}
+                color="white"
               />
             </View>
           </View>
-          <View style={styles.styledSpaceBetween}>
-            <Text style={[styles.whiteText, styles.centerBox]}>OR</Text>
-            <SSOButton label="Sign up with Google" />
-          </View>
+
           <View style={styles.styledSignUpContainer}>
             <Text style={styles.whiteText}>Already have an account?</Text>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-              <Text style={styles.styledSignUpText}>Sign in</Text>
+              <Text style={styles.signInLink}>Sign in</Text>
             </TouchableOpacity>
+          </View>
+
+          <View>
+            <Text style={[styles.whiteText, styles.centerBox]}>OR</Text>
+            <SSOButton />
           </View>
         </View>
       </ImageBackground>
@@ -102,21 +105,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  imageBackground: {
-    flex: 1,
-  },
-
-  inputContainer: {
-    width: '60%',
+  header: {
+    color: 'white',
+    fontSize: 25,
+    marginBottom: 10,
   },
   centerBox: {
     textAlign: 'center',
-    margin: 10,
+    margin: 15,
   },
   whiteText: {
     color: 'white',
   },
-  styledSignUpText: {
+  signInLink: {
     color: 'white',
     marginLeft: 10,
     textDecorationStyle: 'solid',
@@ -127,14 +128,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     margin: 10,
-  },
-  signUpTitle: {
-    color: 'white',
-    fontSize: 25,
-    marginBottom: 10,
-  },
-  styledSpaceBetween: {
-    marginBottom: 10,
   },
 });
 export default SignUp;

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import walkalone from '../assets/images/wave-red-black.png';
 import { layout } from '../src/reusable/styles/LayOut';
@@ -19,9 +20,8 @@ const RegisterOptions = ({ navigation }) => {
             Do you know?
           </Text>
           <Text style={styles.shortMessage}>
-            Half of the female population<br></br>do not feel safe walking alone
-            <br></br>
-            at night even in busy places
+            Half of the female population do not feel safe walking alone at
+            night even in busy places
           </Text>
         </View>
 
@@ -30,16 +30,14 @@ const RegisterOptions = ({ navigation }) => {
             onPress={() => navigation.navigate('SignUp', { role: 'volunteer' })}
           >
             <View style={styles.button}>
-              <Text style={styles.whiteText}>
-                I would like to be a volunteer
-              </Text>
+              <Text style={styles.whiteText}>I want to volunteer</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate('SignUp', { role: 'needer' })}
           >
             <View style={styles.button}>
-              <Text style={styles.whiteText}>I need assistent</Text>
+              <Text style={styles.whiteText}>I need support</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -68,7 +66,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 'auto',
-    marginBottom: 30,
+    marginBottom: 80,
   },
   button: {
     backgroundColor: 'rgba(248, 124, 124, 0.5)',
