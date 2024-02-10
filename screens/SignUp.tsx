@@ -30,23 +30,32 @@ const SignUp: React.FC<SignUpProps> = ({ navigation, route }) => {
 
   const handleSignUp = async () => {
     setLoading(true);
-    const authUser = await createUserWithEmailAndPassword(
-      FIREBASE_AUTH,
-      email,
-      password
-    );
-    // involking fireStore
-    const db = getFirestore();
-    const userCollection = collection(db, 'users');
-    const data = await addDoc(userCollection, {
-      uid: authUser.user.uid,
-      email: authUser.user.email,
-      role: route.params.role,
-    });
-    setLoading(false);
-    if (data) {
-      navigation.navigate('FrontPage');
+    try {
+      const authUser = await createUserWithEmailAndPassword(
+        FIREBASE_AUTH,
+        email,
+        password
+      );
+      // involking fireStore
+
+      if (authUser) {
+        const db = getFirestore();
+        const userCollection = collection(db, 'users');
+        const data = await addDoc(userCollection, {
+          uid: authUser.user.uid,
+          email: authUser.user.email,
+          role: route.params.role,
+        });
+        setLoading(false);
+        if (data) {
+          navigation.navigate('FrontPage');
+        }
+      }
+    } catch (error) {
+      console.log({ error });
     }
+
+    console.log({ route, email, password, FIREBASE_AUTH });
   };
 
   return (

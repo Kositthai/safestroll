@@ -5,7 +5,6 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import walkalone from '../assets/images/wave-red-black.png';
 import { layout } from '../src/reusable/styles/LayOut';
