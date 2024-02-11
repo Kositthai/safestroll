@@ -6,6 +6,7 @@ import Login from './screens/Login';
 import SignUp from './screens/SignUp';
 import FrontPage from './screens/FrontPage';
 import RegisterOptions from './screens/RegisterOptions';
+import MatchingPage from './screens/Matching';
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { FIREBASE_AUTH } from './FirebaseConfig';
@@ -26,7 +27,10 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="RegisterOptions">
           {user ? (
-            <Stack.Screen name="FrontPage" component={FrontPage} />
+            <>
+              {/* <Stack.Screen name="FrontPage" component={FrontPage} /> */}
+              <Stack.Screen name="MatchingPage" component={MatchingPage} />
+            </>
           ) : (
             <>
               <Stack.Screen

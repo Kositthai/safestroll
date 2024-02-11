@@ -34,7 +34,7 @@ const Login = ({ navigation }) => {
       console.log({ response });
       if (response) {
         setLoading(false);
-        navigation.navigate('FrontPage');
+        navigation.navigate('MatchingPage');
       }
     } catch (error) {
       // Cast the error to FirebaseAuthError type
