@@ -12,6 +12,10 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { FIREBASE_AUTH } from './FirebaseConfig';
 import { useState } from 'react';
 
+// import JoinScreen from './screens/JoinScreen';
+import RoomScreen from './screens/Matching';
+import CallScreen from './screens/CallScreen';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -29,7 +33,8 @@ export default function App() {
           {user ? (
             <>
               {/* <Stack.Screen name="FrontPage" component={FrontPage} /> */}
-              <Stack.Screen name="MatchingPage" component={MatchingPage} />
+              <Stack.Screen name="MatchingPage" component={RoomScreen} />
+              <Stack.Screen name="CallScreen" component={CallScreen} />
             </>
           ) : (
             <>

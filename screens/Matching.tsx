@@ -222,7 +222,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, TextInput, StyleSheet, View, Button } from 'react-native';
 
-function RoomScreen({ setScreen, screens, setRoomId, roomId }) {
+function RoomScreen({ setScreen, screens, setRoomId, roomId, navigation }) {
   const OnCallOrJoin = (screen) => {
     if (roomId.length > 0) {
       setScreen(screen);
@@ -242,7 +242,7 @@ function RoomScreen({ setScreen, screens, setRoomId, roomId }) {
       <View style={styles.buttonContainer}>
         <Button
           title="Call Screen"
-          onPress={() => OnCallOrJoin(screens.CALL)}
+          onPress={() => navigation.navigate('CallScreen')}
         />
       </View>
     </>
