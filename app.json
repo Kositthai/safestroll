@@ -1,8 +1,5 @@
 {
   "expo": {
-    "plugins": [
-      "@config-plugins/react-native-webrtc"
-    ],
     "name": "SafeStroll",
     "slug": "SafeStroll",
     "version": "1.0.0",
@@ -14,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bitcode": false,

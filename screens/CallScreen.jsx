@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, Button, View } from 'react-native';
-// import {
-//   RTCPeerConnection,
-//   mediaDevices,
-//   RTCIceCandidate,
-//   RTCSessionDescription,
-// } from 'react-native-webrtc';
-// import {} from 'react-native-webrtc';
 import { getFirestore } from 'firebase/firestore';
 
 // const configuration = {

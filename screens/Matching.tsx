@@ -242,7 +242,7 @@ function RoomScreen({ setScreen, screens, setRoomId, roomId, navigation }) {
       <View style={styles.buttonContainer}>
         <Button
           title="Call Screen"
-          onPress={() => navigation.navigate('CallScreen')}
+          // onPress={() => navigation.navigate('CallScreen')}
         />
       </View>
     </>

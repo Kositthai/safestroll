@@ -31,7 +31,7 @@ const Login = ({ navigation }) => {
         email,
         password
       );
-      console.log({ response });
+      console.log(response);
       if (response) {
         setLoading(false);
         navigation.navigate('MatchingPage');
